@@ -1,0 +1,7 @@
+.key {
+  display: inline-block;
+  border: 1px solid black;
+  margin: 0.25em;
+  padding: 0.25em;
+  color: white;
+}
