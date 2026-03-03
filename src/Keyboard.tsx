@@ -8,11 +8,19 @@ const keyboard = [
 
 const Keyboard: React.FC<{
   getState: (letter: string) => string
-}> = ({ getState }) => {
+  onKey: (letter: string) => void
+  onBackspace: () => void
+  onSubmit: () => void
+}> = ({ getState, onKey, onBackspace, onSubmit }) => {
   return (
     <div className={styles.keyboard}>
       {keyboard.map((row, index) => (
         <div key={index} className={styles.row}>
+          {index === 2 && (
+            <span className={styles.key} onClick={onSubmit}>
+              Enter
+            </span>
+          )}
           {row.map((letter) => (
             <span
               key={letter}
@@ -20,10 +28,16 @@ const Keyboard: React.FC<{
               style={{
                 background: getState(letter),
               }}
+              onClick={() => onKey(letter)}
             >
               {letter}
             </span>
           ))}
+          {index === 2 && (
+            <span className={styles.key} onClick={onBackspace}>
+              ←
+            </span>
+          )}
         </div>
       ))}
     </div>

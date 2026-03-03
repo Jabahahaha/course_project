@@ -2,30 +2,49 @@ import cx from "classnames"
 
 import styles from "./Guesses.module.css"
 
-const NUM_GUESSES = 6
+const WORD_LENGTH = 5
 
 const Guesses: React.FC<{
+  guesses: string[]
+  maxGuesses: number
+  currentGuess: string
   getState: (letter: string, position: number) => string
-}> = ({ getState }) => {
+}> = ({ guesses, maxGuesses, currentGuess, getState }) => {
+  const rows: string[] = []
+
+  for (let i = 0; i < maxGuesses; i++) {
+    if (i < guesses.length) {
+      rows.push(guesses[i])
+    } else if (i === guesses.length) {
+      rows.push(currentGuess.padEnd(WORD_LENGTH))
+    } else {
+      rows.push(" ".repeat(WORD_LENGTH))
+    }
+  }
+
   return (
     <div className={cx("guesses", styles.guesses)}>
-      {Array.from<string>({ length: NUM_GUESSES })
-        .fill("     ")
-        .map((word, index) => (
-          <div key={index} className={styles.row}>
-            {word.split("").map((letter, index) => (
+      {rows.map((word, rowIndex) => {
+        const isSubmitted = rowIndex < guesses.length
+
+        return (
+          <div key={rowIndex} className={styles.row}>
+            {word.split("").map((letter, colIndex) => (
               <span
-                key={index}
+                key={colIndex}
                 className={styles.letter}
                 style={{
-                  background: getState(letter, index),
+                  background: isSubmitted
+                    ? getState(letter, colIndex)
+                    : undefined,
                 }}
               >
-                {letter === " " ? "_" : letter}
+                {letter === " " ? "" : letter}
               </span>
             ))}
           </div>
-        ))}
+        )
+      })}
     </div>
   )
 }
