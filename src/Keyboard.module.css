@@ -1,7 +1,38 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
 .key {
-  display: inline-block;
-  border: 1px solid black;
-  margin: 0.25em;
-  padding: 0.25em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2rem;
+  height: 3.25rem;
+  padding: 0 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
   color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.key:hover {
+  opacity: 0.8;
+}
+
+.key:active {
+  opacity: 0.6;
 }

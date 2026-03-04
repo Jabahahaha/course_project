@@ -32,7 +32,10 @@ const Guesses: React.FC<{
             {word.split("").map((letter, colIndex) => (
               <span
                 key={colIndex}
-                className={styles.letter}
+                className={cx(styles.letter, {
+                  [styles.letterFilled]: letter !== " " && !isSubmitted,
+                  [styles.letterSubmitted]: isSubmitted,
+                })}
                 style={{
                   background: isSubmitted
                     ? getState(letter, colIndex)
