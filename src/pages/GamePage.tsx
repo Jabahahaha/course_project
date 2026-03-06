@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 
-import Guesses from "./Guesses"
-import Keyboard from "./Keyboard"
+import Guesses from "../Guesses"
+import Keyboard from "../Keyboard"
 import {
   type State,
   addGuess,
@@ -9,11 +9,11 @@ import {
   getLetterState,
   isGameOver,
   isWin,
-} from "./logic"
+} from "../logic"
 
 const WORD_LENGTH = 5
 
-const App: React.FC = () => {
+const GamePage: React.FC = () => {
   const [state, setState] = useState<State>()
   const [currentGuess, setCurrentGuess] = useState("")
 
@@ -90,4 +90,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default GamePage
