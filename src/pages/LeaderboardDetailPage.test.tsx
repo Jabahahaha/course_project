@@ -8,10 +8,7 @@ const renderAtRoute = (path: string) =>
   render(
     <MemoryRouter initialEntries={[path]}>
       <Routes>
-        <Route
-          path="/leaderboard/:id"
-          element={<LeaderboardDetailPage />}
-        />
+        <Route path="/leaderboard/:id" element={<LeaderboardDetailPage />} />
       </Routes>
     </MemoryRouter>,
   )

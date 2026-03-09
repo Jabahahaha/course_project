@@ -49,13 +49,7 @@ describe("evaluateGuess", () => {
     // word is "dizzy" (two z's at positions 2,3)
     // guess "zzzzz" should mark positions 2,3 correct, rest absent
     const result = evaluateGuess("dizzy", "zzzzz")
-    expect(result).toEqual([
-      "absent",
-      "absent",
-      "correct",
-      "correct",
-      "absent",
-    ])
+    expect(result).toEqual(["absent", "absent", "correct", "correct", "absent"])
   })
 
   it("does not double-count present letters", () => {
