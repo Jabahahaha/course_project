@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom"
 
 import ErrorBoundary from "../ErrorBoundary"
 import { useGame, useTopScorers } from "../hooks/useLeaderboard"
+import { usePlayer } from "../hooks/usePlayer"
 
 const GameDetail: React.FC<{ id: number }> = ({ id }) => {
   const { data: game } = useGame(id)
@@ -29,7 +30,9 @@ const GameDetail: React.FC<{ id: number }> = ({ id }) => {
 }
 
 const ScorersTable: React.FC<{ gameId: number }> = ({ gameId }) => {
+  const { name } = usePlayer()
   const { data: top10 } = useTopScorers(gameId, 10)
+  const normalizedName = name.trim().toLowerCase()
 
   return (
     <table className="scorers-table">
@@ -41,13 +44,22 @@ const ScorersTable: React.FC<{ gameId: number }> = ({ gameId }) => {
         </tr>
       </thead>
       <tbody>
-        {top10.map((player, index) => (
-          <tr key={player.name}>
-            <td>{index + 1}</td>
-            <td>{player.name}</td>
-            <td>{player.score}</td>
-          </tr>
-        ))}
+        {top10.map((player, index) => {
+          const isCurrentPlayer =
+            normalizedName !== "" &&
+            player.name.toLowerCase() === normalizedName
+
+          return (
+            <tr
+              key={player.name}
+              className={isCurrentPlayer ? "highlight-row" : undefined}
+            >
+              <td>{index + 1}</td>
+              <td>{player.name}</td>
+              <td>{player.score}</td>
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )

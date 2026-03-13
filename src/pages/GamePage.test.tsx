@@ -3,23 +3,26 @@ import userEvent from "@testing-library/user-event"
 import { MemoryRouter } from "react-router-dom"
 import { describe, expect, it } from "vitest"
 
+import { PlayerProvider } from "../context/PlayerProvider"
+
 import GamePage from "./GamePage"
+
+const renderGamePage = () =>
+  render(
+    <PlayerProvider>
+      <MemoryRouter>
+        <GamePage />
+      </MemoryRouter>
+    </PlayerProvider>,
+  )
 
 describe("GamePage", () => {
   it("renders without crashing", () => {
-    render(
-      <MemoryRouter>
-        <GamePage />
-      </MemoryRouter>,
-    )
+    renderGamePage()
   })
 
   it("shows the title and Begin button", () => {
-    render(
-      <MemoryRouter>
-        <GamePage />
-      </MemoryRouter>,
-    )
+    renderGamePage()
     expect(screen.getByText("Wordlish")).toBeInTheDocument()
     expect(screen.getByText("Begin")).toBeInTheDocument()
   })
@@ -31,11 +34,7 @@ describe("GamePage", () => {
   it("plays a full game from start to win", async () => {
     const user = userEvent.setup()
 
-    render(
-      <MemoryRouter>
-        <GamePage />
-      </MemoryRouter>,
-    )
+    renderGamePage()
 
     // Start the game
     await user.click(screen.getByText("Begin"))

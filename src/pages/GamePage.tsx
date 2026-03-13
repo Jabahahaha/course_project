@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react"
 
+import { GameSettingsProvider } from "../context/GameSettingsProvider"
 import Guesses from "../Guesses"
+import { useGameSettings } from "../hooks/useGameSettings"
+import { usePlayer } from "../hooks/usePlayer"
 import Keyboard from "../Keyboard"
 import {
   type State,
@@ -13,7 +16,9 @@ import {
 
 const WORD_LENGTH = 5
 
-const GamePage: React.FC = () => {
+const GameContent: React.FC = () => {
+  const { name } = usePlayer()
+  const { hardMode, toggleHardMode } = useGameSettings()
   const [state, setState] = useState<State>()
   const [currentGuess, setCurrentGuess] = useState("")
 
@@ -58,6 +63,17 @@ const GamePage: React.FC = () => {
     return (
       <>
         <h1>Wordlish</h1>
+        {name && <p className="greeting">Playing as {name}</p>}
+        <div className="game-settings">
+          <label>
+            <input
+              type="checkbox"
+              checked={hardMode}
+              onChange={toggleHardMode}
+            />
+            Hard mode
+          </label>
+        </div>
         <button onClick={() => setState(createState())}>Begin</button>
       </>
     )
@@ -69,6 +85,8 @@ const GamePage: React.FC = () => {
   return (
     <>
       <h1>Wordlish</h1>
+      {name && <p className="greeting">Playing as {name}</p>}
+      {hardMode && <p className="hard-mode-badge">Hard Mode</p>}
       {gameOver && (
         <p>{won ? "You won!" : `Game over! The word was "${state.word}".`}</p>
       )}
@@ -87,6 +105,14 @@ const GamePage: React.FC = () => {
         onSubmit={handleSubmit}
       />
     </>
+  )
+}
+
+const GamePage: React.FC = () => {
+  return (
+    <GameSettingsProvider>
+      <GameContent />
+    </GameSettingsProvider>
   )
 }
 

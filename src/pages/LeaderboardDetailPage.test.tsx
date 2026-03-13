@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react"
 import { MemoryRouter, Route, Routes } from "react-router-dom"
 import { describe, expect, it } from "vitest"
 
+import { PlayerProvider } from "../context/PlayerProvider"
+
 import LeaderboardDetailPage from "./LeaderboardDetailPage"
 
 const renderAtRoute = (path: string) => {
@@ -11,11 +13,16 @@ const renderAtRoute = (path: string) => {
   })
   return render(
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter initialEntries={[path]}>
-        <Routes>
-          <Route path="/leaderboard/:id" element={<LeaderboardDetailPage />} />
-        </Routes>
-      </MemoryRouter>
+      <PlayerProvider>
+        <MemoryRouter initialEntries={[path]}>
+          <Routes>
+            <Route
+              path="/leaderboard/:id"
+              element={<LeaderboardDetailPage />}
+            />
+          </Routes>
+        </MemoryRouter>
+      </PlayerProvider>
     </QueryClientProvider>,
   )
 }
