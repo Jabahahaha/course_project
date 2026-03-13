@@ -24,7 +24,7 @@ if (!root) throw new Error("Cannot find #root")
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename="/course_project">
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<GamePage />} />
