@@ -10,7 +10,7 @@
     "lint-prettier": "prettier --check .",
     "lint-depcheck": "depcheck .",
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "test": "vitest run"
   },
   "dependencies": {

@@ -3,12 +3,12 @@ import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-import { PlayerProvider } from "./context/PlayerProvider"
 import "./global.css"
-import Layout from "./Layout"
 import GamePage from "./pages/GamePage"
 import LeaderboardDetailPage from "./pages/LeaderboardDetailPage"
 import LeaderboardListPage from "./pages/LeaderboardListPage"
+import Layout from "./shared/components/Layout"
+import { PlayerProvider } from "./shared/context/PlayerProvider"
 
 const queryClient = new QueryClient({
   defaultOptions: {
